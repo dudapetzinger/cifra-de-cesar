@@ -1,0 +1,47 @@
+import unittest
+ 
+def criptografia(texto, indice, alfabeto):
+    texto_cripto = ''
+    for char in texto:
+        if char in alfabeto:
+            indice_char = (alfabeto.index(char) + indice) % len(alfabeto)
+            texto_cripto += alfabeto[indice_char]
+        else:
+            texto_cripto += char
+    return texto_cripto
+ 
+def descriptografa(texto, indice, alfabeto):
+    texto_descripto = ''
+    for char in texto:
+        if char in alfabeto:
+            indice_char = (alfabeto.index(char) - indice) % len(alfabeto)
+            texto_descripto += alfabeto[indice_char]
+        else:
+            texto_descripto += char
+    return texto_descripto
+ 
+class TestCifraCesar(unittest.TestCase):
+    def test_criptografia_e_descriptografia(self):
+        texto_original = "eduarda é uma futura engenheira de software"
+        indice = 3
+        alfabeto = 'abcdefghijklmnopqrstuvwxyz'
+       
+        texto_criptografado = criptografia(texto_original.lower(), indice, alfabeto)
+        texto_descriptografado = descriptografa(texto_criptografado, indice, alfabeto)
+       
+        self.assertNotEqual(texto_original, texto_criptografado)  
+        self.assertEqual(texto_original, texto_descriptografado)  
+ 
+    def test_criptografia_com_espacos_e_pontuacao(self):
+        texto_original = "eduarda é uma futura engenheira de software!"
+        indice = 5
+        alfabeto = 'abcdefghijklmnopqrstuvwxyz'
+       
+        texto_criptografado = criptografia(texto_original.lower(), indice, alfabeto)
+       
+        self.assertIn(' ', texto_criptografado)
+        self.assertIn('!', texto_criptografado)
+ 
+if __name__ == '__main__':
+    unittest.main()
+ 
