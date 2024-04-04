@@ -1,0 +1,29 @@
+def criptografia(texto, indice, alfabeto):
+    texto_cripto = ''
+    for char in texto:
+        if char in alfabeto:
+            indice_char = (alfabeto.index(char) + indice) % len(alfabeto)
+            texto_cripto += alfabeto[indice_char]
+        else:
+            texto_cripto += char
+    return texto_cripto
+ 
+def descriptografa(texto, indice, alfabeto):
+    texto_descripto = ''
+    for char in texto:
+        if char in alfabeto:
+            indice_char = (alfabeto.index(char) - indice) % len(alfabeto)
+            texto_descripto += alfabeto[indice_char]
+        else:
+            texto_descripto += char
+    return texto_descripto
+ 
+texto_original = "eduarda é uma futura engenheira de software"
+indice = 3
+alfabeto = 'abcdefghijklmnopqrstuvwxyz'
+ 
+texto_criptografado = criptografia(texto_original.lower(), indice, alfabeto)
+print("Texto Criptografado:", texto_criptografado)
+ 
+texto_descriptografado = descriptografa(texto_criptografado, indice, alfabeto)
+print("Texto Descriptografado:", texto_descriptografado)
